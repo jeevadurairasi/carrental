@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <title>Car Rental</title>
+</head>
+<body>
+<div class="container">
+  <h1>Car Rental</h1>
+  <div class="row">
+    <div class="col-md-3">
+      <h4>Filter by Car Type</h4>
+      <div class="form-group">
+        <label for="car-type">Select Car Type:</label>
+        <select id="car-type" [(ngModel)]="selectedType" class="form-control">
+          <option value="all">All</option>
+          <option value="basic">Basic</option>
+          <option value="mid-range">Mid-Range</option>
+          <option value="high-end">High-End</option>
+        </select>
+      </div>
+      <h4>Filter by Gear Type</h4>
+      <div class="form-group">
+        <label for="gear-type">Select Gear Type:</label>
+        <select id="gear-type" [(ngModel)]="selectedGearType" class="form-control">
+          <option value="all">All</option>
+          <option value="manual">Manual</option>
+          <option value="automatic">Automatic</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <div class="row">
+        <div class="col-md-4" *ngFor="let car of filteredCars">
+          <div class="thumbnail">
+            <h6>{{ car.name }}</h6>
+            <img [src]="car.image" alt="Car image">
+            <div class="caption">
+              <div class="form-group">
+                <label for="distance-{{ car.name }}">Enter Distance (in km):</label>
+                <input type="number" id="distance-{{ car.name }}" [(ngModel)]="car.userDistance" class="form-control" placeholder="Enter distance">
+              </div>
+              <div class="form-group">
+                <label for="days-{{ car.name }}">Enter Rental Days:</label>
+                <input type="number" id="days-{{ car.name }}" [(ngModel)]="car.rentalDays" class="form-control" placeholder="Enter rental days">
+              </div>
+              <p>Model: {{ car.model }}</p>
+              <p>Details: {{ car.details }}</p>
+              <p>Gear Type: {{ car.gearType }}</p>
+              <p>Rental Cost: ₹{{ calculateRentalCost(car) }}</p>
+              <p>Loyalty Points: {{ calculateLoyaltyPoints(car) }}</p>
+              <p>Extra Discount Rides: {{ car.extraDiscountRides || 0 }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
