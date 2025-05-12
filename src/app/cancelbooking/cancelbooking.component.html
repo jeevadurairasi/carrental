@@ -1,0 +1,9 @@
+<div class="container">
+  <h1>Cancel Booking</h1>
+  <div class="form-group">
+    <label for="booking-id">Enter Booking ID:</label>
+    <input type="text" id="booking-id" [(ngModel)]="bookingId" class="form-control" placeholder="Enter booking ID">
+  </div>
+  <button (click)="cancelBooking()" class="btn btn-danger">Cancel Booking</button>
+  <p>{{ message }}</p>
+</div>
