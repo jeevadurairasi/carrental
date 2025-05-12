@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { SharedService } from '../shared.service';
 
 interface RentalDetails {
   pricePerKm: number;
@@ -13,7 +14,7 @@ interface Car {
   type: 'basic' | 'mid-range' | 'high-end';
   rentalDetails: RentalDetails;
   userDistance?: number;
-  rentalDays?: number; // Add rental days property
+  rentalDays?: number;
   details: string;
   gearType: 'manual' | 'automatic';
   isFrequentRenter?: boolean;
@@ -26,15 +27,25 @@ interface Car {
   templateUrl: './carlist.component.html',
   styleUrls: ['./carlist.component.css']
 })
-export class CarlistComponent {
+export class CarlistComponent implements OnInit {
   selectedType: string = 'all';
   selectedGearType: string = 'all';
+  selectedCity: string = 'all';
+  city: string = 'All';
+
+  constructor(private sharedService: SharedService) {}
+
+  ngOnInit(): void {
+    this.city = this.sharedService.getCity();
+  }
 
   cars: Car[] = [
     { name: 'Car 1', image: './assets/OIP.jfif', model: 'Model 1', type: 'basic', rentalDetails: { pricePerKm: 10, discount: 20, perDayCost: 500 }, details: 'Economical and fuel-efficient', gearType: 'manual', isFrequentRenter: true, loyaltyPoints: 0, extraDiscountRides: 0 },
     { name: 'Car 2', image: './assets/OIP.jfif', model: 'Model 2', type: 'mid-range', rentalDetails: { pricePerKm: 12, discount: 25, perDayCost: 700 }, details: 'Comfortable and spacious', gearType: 'automatic', isFrequentRenter: false, loyaltyPoints: 0, extraDiscountRides: 0 },
     { name: 'Car 3', image: './assets/OIP.jfif', model: 'Model 3', type: 'high-end', rentalDetails: { pricePerKm: 15, discount: 30, perDayCost: 1000 }, details: 'Luxury and high performance', gearType: 'automatic', isFrequentRenter: true, loyaltyPoints: 0, extraDiscountRides: 0 },
-    // Add more cars as needed
+    { name: 'Car 4', image: './assets/OIP.jfif', model: 'Model 4', type: 'basic', rentalDetails: { pricePerKm: 10, discount: 20, perDayCost: 500 }, details: 'Economical and fuel-efficient', gearType: 'automatic', isFrequentRenter: true, loyaltyPoints: 0, extraDiscountRides: 0 },
+    { name: 'Car 5', image: './assets/OIP.jfif', model: 'Model 1', type: 'mid-range', rentalDetails: { pricePerKm: 10, discount: 20, perDayCost: 500 }, details: 'Economical and fuel-efficient', gearType: 'manual', isFrequentRenter: true, loyaltyPoints: 0, extraDiscountRides: 0 },
+    { name: 'Car 6', image: './assets/OIP.jfif', model: 'Model 3', type: 'high-end', rentalDetails: { pricePerKm: 10, discount: 20, perDayCost: 500 }, details: 'Economical and fuel-efficient', gearType: 'manual', isFrequentRenter: true, loyaltyPoints: 0, extraDiscountRides: 0 }
   ];
 
   get filteredCars(): Car[] {
@@ -98,7 +109,7 @@ export class CarlistComponent {
   calculateLoyaltyPoints(car: Car): number {
     const userDistance = car.userDistance || 0;
     const points = Math.floor(userDistance / 50);
-    car.loyaltyPoints = (car.loyaltyPoints || 0) + points;
+    car.loyaltyPoints = (car.loyaltyPoints ||0)  + points;
 
     // Check if loyalty points qualify for extra discount rides
     if (car.loyaltyPoints >= 25) {
@@ -107,5 +118,11 @@ export class CarlistComponent {
     }
 
     return car.loyaltyPoints;
+  }
+
+  bookCar(car: Car): void {
+    // Increase loyalty points when booking is confirmed
+    car.loyaltyPoints = (car.loyaltyPoints || 0) ; // Example: Add 10 points for each booking
+    alert(`Car ${car.name} has been booked successfully! Loyalty points: ${car.loyaltyPoints}`);
   }
 }

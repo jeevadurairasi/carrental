@@ -54,6 +54,58 @@ button:hover {
 p {
   text-align: center; /* Center align the message */
   font-size: 1rem;
-  color: #5cb85c; /* Bootstrap success color for success messages */
+  color: #213121; /* Bootstrap success color for success messages */
   margin-top: 20px;
+}
+
+.container {
+  margin-top: 20px;
+}
+
+h1, h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.breadcrumb {
+  background-color: #f8f9fa;
+  border-radius: 0.25rem;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.breadcrumb-item {
+  font-size: 16px;
+  color: #0e1610;
+  margin-bottom: 10px; /* Add space between breadcrumb items */
+}
+
+.breadcrumb-item.active {
+  color: #6c757d;
+}
+
+.breadcrumb-item::before {
+  content: ":";
+  color: #6c757d;
+  padding: 0 5px;
+}
+
+.mt-4 {
+  margin-top: 40px;
+}
+
+.btn-danger {
+  display: block;
+  width: 100%;
+  margin-top: 10px;
+}
+
+p {
+  text-align: center;
+  font-size: 18px;
+  color: #28a745;
 }

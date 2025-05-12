@@ -33,6 +33,7 @@
         </select>
       </div>
     </div>
+    <h1>location:{{city}}</h1>
     <div class="col-md-9">
       <div class="row">
         <div class="col-md-4" *ngFor="let car of filteredCars">
@@ -54,6 +55,7 @@
               <p>Rental Cost: ₹{{ calculateRentalCost(car) }}</p>
               <p>Loyalty Points: {{ calculateLoyaltyPoints(car) }}</p>
               <p>Extra Discount Rides: {{ car.extraDiscountRides || 0 }}</p>
+              <button class="btn btn-primary" (click)="bookCar(car)">Book Now</button>
             </div>
           </div>
         </div>
